@@ -34,6 +34,13 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable long id){
+        return questionService.getQuestionById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Question> createQuestion(@RequestBody @Valid QuestionDto dto) {
         Question saved = questionService.createQuestion(dto);
@@ -41,8 +48,8 @@ public class QuestionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @RequestBody Question updatedQuestion) {
-        return questionService.updateQuestion(id, updatedQuestion)
+    public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @RequestBody @Valid QuestionDto dto) {
+        return questionService.updateQuestion(id, dto)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
