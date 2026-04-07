@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Environment files
+.env
+.env.*
+
+# Zip files
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db

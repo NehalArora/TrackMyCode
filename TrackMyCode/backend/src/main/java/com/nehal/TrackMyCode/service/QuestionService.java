@@ -21,6 +21,10 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    public Optional<Question> getQuestionById(Long id){
+        return questionRepository.findById(id);
+    }
+
     public Question createQuestion(QuestionDto dto){
         Question question = new Question();
         question.setTitle(dto.getTitle());
@@ -31,12 +35,11 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Optional<Question> updateQuestion(Long id, Question updatedQuestion) {
+    public Optional<Question> updateQuestion(Long id, QuestionDto updatedQuestion) {
         return questionRepository.findById(id).map(question -> {
             question.setTitle(updatedQuestion.getTitle());
             question.setDifficulty(updatedQuestion.getDifficulty());
             question.setTopic(updatedQuestion.getTopic());
-            question.setTimeTaken(updatedQuestion.getTimeTaken());
             question.setNotes(updatedQuestion.getNotes());
             return questionRepository.save(question);
         });
